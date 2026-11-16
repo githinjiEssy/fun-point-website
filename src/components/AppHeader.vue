@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import { useCartStore } from '../stores/cart'
 
+const cart = useCartStore()
 const route = useRoute()
 const mobileOpen = ref(false)
 
@@ -52,6 +54,26 @@ function isActive(to) {
         >
           {{ item.label }}
         </RouterLink>
+
+        <RouterLink
+          to="/cart"
+          class="relative w-11 h-11 rounded-full bg-white border border-forest/10 grid place-items-center hover:border-forest/30"
+          aria-label="Shopping cart"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 6h15l-2 9H8L6 6Z" />
+            <path d="M6 6 5 3H2" />
+            <circle cx="9" cy="20" r="1.5" />
+            <circle cx="18" cy="20" r="1.5" />
+          </svg>
+          <span
+            v-if="cart.count > 0"
+            class="absolute -top-1 -right-1 min-w-[20px] h-5 px-1 bg-coral text-white text-xs font-bold rounded-full grid place-items-center"
+            :aria-label="`${cart.count} items in cart`"
+          >
+            {{ cart.count }}
+          </span>
+        </RouterLink>
       </div>
 
       <button
@@ -78,6 +100,14 @@ function isActive(to) {
           @click="mobileOpen = false"
         >
           {{ item.label }}
+        </RouterLink>
+        <RouterLink
+          to="/cart"
+          class="h-12 px-4 rounded-xl flex items-center justify-between font-display font-semibold text-forest hover:bg-forest/5"
+          @click="mobileOpen = false"
+        >
+          <span>Cart</span>
+          <span v-if="cart.count" class="bg-coral text-white text-xs font-bold rounded-full px-2 py-0.5">{{ cart.count }}</span>
         </RouterLink>
       </nav>
     </div>
