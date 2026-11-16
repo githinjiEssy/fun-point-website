@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+@import './token.css';
+
+@theme {
+  --color-forest: #174a3a;
+  --color-leaf: #4faf62;
+  --color-sun: #ffc94a;
+  --color-orange: #f28c38;
+  --color-sky: #61b7e8;
+  --color-coral: #f26b5b;
+  --color-cream: #fff8e8;
+  --color-brown: #3d3428;
+
+  --font-display: 'Fredoka', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-heading);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  /* Accessibility: visible focus ring everywhere */
+  :focus-visible {
+    outline: 3px solid var(--color-sky);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
